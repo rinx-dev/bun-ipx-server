@@ -1,4 +1,4 @@
-import { toWebHandler, createApp } from "h3";
+import { toWebHandler, createApp, createRouter, defineEventHandler } from "h3";
 import {
   createIPX,
   createIPXH3Handler,
@@ -7,6 +7,16 @@ import {
 } from "ipx";
 
 const app = createApp();
+const router = createRouter();
+
+app.use(router);
+
+router.get(
+  "/ping",
+  defineEventHandler((event) => {
+    return "pong";
+  })
+);
 
 const domainList = process.env.HOSTNAME_LIST!;
 
